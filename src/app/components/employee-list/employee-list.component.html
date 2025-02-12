@@ -1,0 +1,33 @@
+<div class="container">
+  <h2>Lista de Funcionários</h2>
+  <button (click)="addEmployee()" class="btn btn-primary mb-3">Adicionar Funcionário</button>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Email</th>
+        <th>Endereço</th>
+        <th>Telefone</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.firstName }}</td>
+        <td>{{ emp.lastName }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.address }}</td>
+        <td>{{ emp.phone }}</td>
+        <td>
+          <button (click)="viewEmployee(emp.id!)" class="btn btn-info btn-sm">Ver</button>
+          <button (click)="editEmployee(emp.id!)" class="btn btn-warning btn-sm">Editar</button>
+          <button (click)="deleteEmployee(emp.id!)" class="btn btn-danger btn-sm">Deletar</button>
+        </td>
+      </tr>
+      <tr *ngIf="employees.length === 0">
+        <td colspan="6" class="text-center">Nenhum funcionário encontrado.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

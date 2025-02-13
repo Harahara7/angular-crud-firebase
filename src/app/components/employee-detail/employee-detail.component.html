@@ -1,1 +1,10 @@
-<p>employee-detail works!</p>
+<div class="container" *ngIf="employee$ | async as emp; else loading">
+  <h2>{{ emp.firstName }} {{ emp.lastName }}</h2>
+  <p><strong>Email:</strong> {{ emp.email }}</p>
+  <p><strong>Endereço:</strong> {{ emp.address }}</p>
+  <p><strong>Telefone:</strong> {{ emp.phone }}</p>
+  <button (click)="goBack()" class="btn btn-secondary mt-3">Voltar</button>
+</div>
+<ng-template #loading>
+  <p>Carregando funcionário...</p>
+</ng-template>

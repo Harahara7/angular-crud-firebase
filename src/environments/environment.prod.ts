@@ -1,11 +1,12 @@
 export const environment = {
   production: true,
-  firebase: {
-    apiKey: "SUA_API_KEY",
-    authDomain: "seu-projeto.firebaseapp.com",
-    projectId: "seu-projeto",
-    storageBucket: "seu-projeto.appspot.com",
-    messagingSenderId: "SEU_ID_DE_MENSAGENS",
-    appId: "SEU_APP_ID"
+  firebaseConfig: {
+    apiKey: "AIzaSyAWc_NDcttHk2Ec2TFPl7RxRq55mA7tVjA",
+    authDomain: "mycrudapp-3ea2a.firebaseapp.com",
+    projectId: "mycrudapp-3ea2a",
+    storageBucket: "mycrudapp-3ea2a.firebasestorage.app",
+    messagingSenderId: "724939550056",
+    appId: "1:724939550056:web:d7692e49b4e10edc457add",
+    measurementId: "G-R45N01DD5J"
   }
 };

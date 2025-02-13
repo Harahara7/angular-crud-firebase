@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Firestore, collection, collectionData, doc, docData, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 // Crie uma interface para o Employee para tipagem:
@@ -19,30 +19,35 @@ export class EmployeeService {
 
   private collectionName = 'employees'; // nome da coleção no Firestore
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: Firestore) { }
 
   // CREATE: Adiciona um novo funcionário
   addEmployee(employee: Employee): Promise<any> {
-    return this.firestore.collection(this.collectionName).add(employee);
+    return addDoc(collection(this.firestore, this.collectionName), employee);
   }
 
   // READ: Retorna a lista de funcionários
   getEmployees(): Observable<Employee[]> {
-    return this.firestore.collection<Employee>(this.collectionName).valueChanges({ idField: 'id' });
+    const employeesRef = collection(this.firestore, this.collectionName);
+    // Retorna dados em tempo real
+    return collectionData(employeesRef, { idField: 'id' }) as Observable<Employee[]>;
   }
 
   // READ: Retorna os dados de um funcionário específico
   getEmployee(id: string): Observable<Employee | undefined> {
-    return this.firestore.doc<Employee>(`${this.collectionName}/${id}`).valueChanges();
+    const employeeDocRef = doc(this.firestore, `${this.collectionName}/${id}`);
+    return docData(employeeDocRef) as Observable<Employee | undefined>;
   }
 
   // UPDATE: Atualiza os dados de um funcionário
   updateEmployee(id: string, employee: Employee): Promise<void> {
-    return this.firestore.doc(`${this.collectionName}/${id}`).update(employee);
+    const employeeDocRef = doc(this.firestore, `${this.collectionName}/${id}`);
+    return updateDoc(employeeDocRef, { ...employee });
   }
 
   // DELETE: Remove um funcionário
   deleteEmployee(id: string): Promise<void> {
-    return this.firestore.doc(`${this.collectionName}/${id}`).delete();
+    const employeeDocRef = doc(this.firestore, `${this.collectionName}/${id}`);
+    return deleteDoc(employeeDocRef);
   }
 }
